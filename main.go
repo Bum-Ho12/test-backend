@@ -47,12 +47,12 @@ func main() {
 		log.Printf("Warning: Failed to register with Leviathan Agent: %v", err)
 		log.Println("Continuing without Leviathan registration...")
 	} else {
-		log.Println("✅ Successfully registered with Leviathan Agent")
+		log.Println(" Successfully registered with Leviathan Agent")
 		// Start heartbeat
 		if err := sdk.StartAutoHeartbeat(ctx, time.Minute); err != nil {
 			log.Printf("Warning: Failed to start heartbeat: %v", err)
 		} else {
-			log.Println("✅ Heartbeat started")
+			log.Println(" Heartbeat started")
 		}
 	}
 
