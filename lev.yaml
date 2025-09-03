@@ -11,3 +11,120 @@ security:
 meta:
   version: 1.0.0
   tags: [test, api, demo]
+
+
+# agentUrl: string          # optional – explicit agent address (overrides discovery)
+# service: string           # required – name of this backend service
+# port: int                 # required – port where this backend is listening
+# protocol: string          # http | graphql | grpc | grpc-web (default: http)
+
+# announce:                 # optional – hints about transport layers
+#   transports: [string]
+
+# security:                 # optional – service-level auth
+#   mode: none|token|mtls    # defaults to "none"
+#   token: string            # if mode == token
+
+# meta:                     # optional – metadata
+#   version: string
+#   tags: [string]
+
+# graphql:                  # only if protocol = graphql
+#   endpoint: string        # default "/graphql"
+#   playground: string
+#   schema: string          # SDL file path or schema ID
+#   operations: [string]    # list of supported queries/mutations
+#   subscriptions: bool
+
+# grpc:                     # only if protocol = grpc | grpc-web
+#   services: [string]      # gRPC service names implemented
+#   reflection: bool        # default true
+#   tls: bool
+#   protoFiles: [string]    # list of .proto files
+#   webSupport: bool        # set if protocol = grpc-web
+
+
+# Example:
+# REST Service
+# service: auth-api
+# port: 8080
+# protocol: http
+# meta:
+#   version: "1.0.0"
+#   tags: [auth, rest]
+
+# GraphQL Service
+# service: users-api
+# port: 4000
+# protocol: graphql
+# graphql:
+#   endpoint: /graphql
+#   playground: /play
+#   schema: ./schema.graphql
+#   operations:
+#     - query getUser
+#     - mutation createUser
+#   subscriptions: true
+# security:
+#   mode: token
+#   token: ${GRAPHQL_SERVICE_TOKEN}
+
+
+# gRPC Service
+# service: billing-api
+# port: 50051
+# protocol: grpc
+# grpc:
+#   services:
+#     - BillingService
+#     - InvoiceService
+#   reflection: true
+#   tls: true
+#   protoFiles:
+#     - ./proto/billing.proto
+#     - ./proto/invoice.proto
+# meta:
+#   version: "2.1.3"
+#   tags: [grpc, payments]
+
+# gRPC-Web Service
+# service: orders-api
+# port: 9090
+# protocol: grpc-web
+# grpc:
+#   services:
+#     - OrdersService
+#   reflection: false
+#   webSupport: true
+#   protoFiles:
+#     - ./proto/orders.proto
+
+# Mixed Security
+# agentUrl: http://192.168.1.100:5000
+# service: reporting
+# port: 7000
+# protocol: graphql
+# security:
+#   mode: mtls
+# meta:
+#   version: "0.9.0-beta"
+#   tags: [analytics, experimental]
+# graphql:
+#   endpoint: /api/graphql
+#   subscriptions: false
+
+# Protocol defaults:
+
+# If protocol not set → http.
+
+# If graphql without endpoint → /graphql.
+
+# If grpc without reflection → true.
+
+# If grpc-web → webSupport defaults true.
+
+# AutoRegister in Go uses this config to send a RegisterRequest to /v1/register.
+
+# ValidateRegistration ensures the service shows up in /v1/services.
+
+# Heartbeat keeps the service alive in the registry.
