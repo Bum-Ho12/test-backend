@@ -1,8 +1,9 @@
 # test-backend/lev.yaml
 # agentUrl: http://<ip>:5000
 service: test-api
-port: 8080
+port: 8082
 protocol: http
+hotspotMode: true
 announce:
   transports: [mdns, udp, corporate]
 security:
@@ -11,6 +12,10 @@ security:
 meta:
   version: 1.0.0
   tags: [test, api, demo]
+networkScan:
+    enabled: true
+    prioritizeWireless: true
+    maxScanTime: 8
 
 
 # agentUrl: string          # optional – explicit agent address (overrides discovery)
